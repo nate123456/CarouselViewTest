@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -26,7 +26,7 @@ namespace CarouselViewTest.ViewModels
             };
 
             //This prevents the CurrentPerson from being null (the view does not set it initially and it causes other issues)
-            CurrentPerson = People.FirstOrDefault();
+            //CurrentPerson = People.FirstOrDefault();
         }
 
         public Person CurrentPerson
@@ -66,11 +66,11 @@ namespace CarouselViewTest.ViewModels
         {
             if (People.Count - 1 != Position)
             {
-                //Position++;
+                Position++;
 
-                var newPerson = People[People.IndexOf(CurrentPerson) + 1];
+                //var newPerson = People[People.IndexOf(CurrentPerson) + 1];
 
-                CurrentPerson = newPerson;
+                //CurrentPerson = newPerson;
             }
         });
 
