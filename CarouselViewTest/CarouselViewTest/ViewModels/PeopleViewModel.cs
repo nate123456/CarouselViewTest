@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using CarouselViewTest.Annotations;
 using CarouselViewTest.Models;
@@ -9,8 +10,9 @@ namespace CarouselViewTest.ViewModels
 {
     internal class PeopleViewModel : INotifyPropertyChanged
     {
-        private int _position;
+        private Person _currentPerson;
         private ObservableCollection<Person> _people;
+        private int _position;
 
         public PeopleViewModel()
         {
@@ -23,6 +25,20 @@ namespace CarouselViewTest.ViewModels
                 new Person {Age = 33, Name = "Jessica"},
                 new Person {Age = 29, Name = "Jack"}
             };
+
+            //This prevents the CurrentPerson from being null (the view does not set it initially and it causes other issues)
+            CurrentPerson = People.FirstOrDefault();
+        }
+
+        public Person CurrentPerson
+        {
+            get => _currentPerson;
+            set
+            {
+                if (value == _currentPerson) return;
+                _currentPerson = value;
+                OnPropertyChanged();
+            }
         }
 
         public ObservableCollection<Person> People
@@ -33,7 +49,6 @@ namespace CarouselViewTest.ViewModels
                 if (Equals(value, _people)) return;
                 _people = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(GoNextCommand));
             }
         }
 
@@ -45,14 +60,19 @@ namespace CarouselViewTest.ViewModels
                 if (value == _position) return;
                 _position = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(GoNextCommand));
             }
         }
 
         public Command GoNextCommand => new Command(() =>
         {
             if (People.Count - 1 != Position)
-                Position++;
+            {
+                //Position++;
+
+                var newPerson = People[People.IndexOf(CurrentPerson) + 1];
+
+                CurrentPerson = newPerson;
+            }
         });
 
         public event PropertyChangedEventHandler PropertyChanged;

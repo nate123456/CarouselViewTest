@@ -13,7 +13,8 @@
                    HorizontalOptions="CenterAndExpand" />
             <CarouselView x:Name="CarouselView" 
                           ItemsSource="{Binding People}" 
-                          Position="{Binding Position}">
+                          Position="{Binding Position}"
+                          CurrentItem="{Binding CurrentPerson}">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
@@ -34,6 +35,10 @@
             <Label Text="{Binding Position}" BindingContext="{x:Reference Name=CarouselView}" FontAttributes="Bold" />
             <Label Text="Current Position (ViewModel):" FontAttributes="Italic" />
             <Label Text="{Binding Position}" FontAttributes="Bold" />
+            <Label Text="Current Person (CarouselView):" FontAttributes="Italic" />
+            <Label Text="{Binding CurrentItem.Name}" BindingContext="{x:Reference Name=CarouselView}" FontAttributes="Bold" />
+            <Label Text="Current Person (CarouselView):" FontAttributes="Italic" />
+            <Label Text="{Binding CurrentPerson.Name}" FontAttributes="Bold" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
