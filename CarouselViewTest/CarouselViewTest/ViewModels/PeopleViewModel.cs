@@ -26,7 +26,7 @@ namespace CarouselViewTest.ViewModels
             };
 
             //This prevents the CurrentPerson from being null (the view does not set it initially and it causes other issues)
-            CurrentPerson = People.FirstOrDefault();
+            //CurrentPerson = People.FirstOrDefault();
         }
 
         public Person CurrentPerson
