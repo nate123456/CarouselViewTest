@@ -26,7 +26,7 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-            <IndicatorView IndicatorView.ItemsSourceBy="CarouselView"
+            <IndicatorView 
                            IndicatorColor="LightGray"
                            SelectedIndicatorColor="DarkGray"
                            HorizontalOptions="Center" />
