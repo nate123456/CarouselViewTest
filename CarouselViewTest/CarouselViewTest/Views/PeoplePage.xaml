@@ -3,21 +3,28 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:converters="clr-namespace:CarouselViewTest.Converters;assembly=CarouselViewTest"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="CarouselViewTest.Views.PeoplePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AgeToColorConverter x:Key="AgeToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Margin="20">
+        <StackLayout BackgroundColor="DarkGray">
             <Label Text="Current People"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
             <CarouselView x:Name="CarouselView" 
                           ItemsSource="{Binding People}" 
                           Position="{Binding Position}"
-                          CurrentItem="{Binding CurrentPerson}">
+                          CurrentItem="{Binding CurrentPerson}"
+                          Margin="20" >
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout>
+                        <StackLayout BackgroundColor="{Binding Age, Converter={x:StaticResource Key=AgeToColorConverter}}">
                             <Label Text="Name:" FontAttributes="Italic" />
                             <Label Text="{Binding Name}" FontAttributes="Bold" />
                             <Label Text="Age:" FontAttributes="Italic" />
@@ -26,10 +33,6 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-            <IndicatorView IndicatorView.ItemsSourceBy="CarouselView"
-                           IndicatorColor="LightGray"
-                           SelectedIndicatorColor="DarkGray"
-                           HorizontalOptions="Center" />
             <Button Text="Next" Command="{Binding GoNextCommand}"/>
             <Label Text="Current Position (CarouselView):" FontAttributes="Italic" />
             <Label Text="{Binding Position}" BindingContext="{x:Reference Name=CarouselView}" FontAttributes="Bold" />
